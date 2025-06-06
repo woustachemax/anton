@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server"
 import jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import 'dotenv/config'
+import { signupSchema } from "@/lib/schema";
 
 
 const client = new PrismaClient()
@@ -13,13 +14,6 @@ if (!JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined");
   }
   
-
-
-const signupSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8)
-})
-
 
 export async function POST(req: NextRequest){
     const user = await req.json()

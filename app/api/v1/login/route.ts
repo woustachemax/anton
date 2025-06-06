@@ -4,6 +4,7 @@ import "dotenv/config"
 import {z} from 'zod'
 import { NextRequest, NextResponse } from "next/server";
 import * as bcrypt from 'bcrypt';
+import { loginSchema } from "@/lib/schema";
 
 const client = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET!;
@@ -12,10 +13,10 @@ if (!JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined");
   }
 
-const loginSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8)
-})
+// const loginSchema = z.object({
+//     email: z.string().email(),
+//     password: z.string().min(8)
+// })
 
 export async function POST(req: NextRequest){
     const body = await req.json();
